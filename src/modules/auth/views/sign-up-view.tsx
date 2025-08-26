@@ -63,6 +63,26 @@ const SignUpView = () => {
     );
   };
 
+  const onSocial = (provider:"google"|"github") => {
+      setError(null);
+      setPending(true);
+      authClient.signIn.social(
+        {
+          provider:provider,
+          callbackURL:"/"
+        },
+        {
+          onSuccess: () => {
+            setPending(false);
+          },
+          onError:(ctx)=> {
+              setError(ctx.error.message);
+              setPending(false);
+          },
+        }
+      );
+    };
+
   return (
     <div className="flex flex-col gap-6">
       <Card className="overflow-hidden p-0">
@@ -148,10 +168,10 @@ const SignUpView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
+                  <Button onClick={()=>onSocial("google")} disabled={pending} variant="outline" type="button" className="w-full">
                     Google
                   </Button>
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
+                  <Button onClick={()=>onSocial("github")} disabled={pending} variant="outline" type="button" className="w-full">
                     Github
                   </Button>
                 </div>

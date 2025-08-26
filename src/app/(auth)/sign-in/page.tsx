@@ -1,8 +1,18 @@
-import SignInView from '@/modules/auth/views/sign-in-view'
-import React from 'react'
+import { auth } from "@/lib/auth";
+import SignInView from "@/modules/auth/views/sign-in-view";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import React from "react";
 
-const SignIn = () => {
-  return (<SignInView/>)
-}
+const SignIn = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
 
-export default SignIn
+  if (!!session) {
+    redirect("/");
+  }
+  return <SignInView />;
+};
+
+export default SignIn;
