@@ -28,6 +28,7 @@ const formSchema = z.object({
 });
 
 const SignInView = () => {
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,6 +51,26 @@ const SignInView = () => {
       {
         onSuccess: () => {
           router.push("/");
+          setPending(false);
+        },
+        onError:(ctx)=> {
+            setError(ctx.error.message);
+            setPending(false);
+        },
+      }
+    );
+  };
+
+  const onSocial = (provider:"google"|"github") => {
+    setError(null);
+    setPending(true);
+    authClient.signIn.social(
+      {
+        provider:provider,
+        callbackURL:"/"
+      },
+      {
+        onSuccess: () => {
           setPending(false);
         },
         onError:(ctx)=> {
@@ -126,10 +147,10 @@ const SignInView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
+                  <Button disabled={pending} variant="outline" type="button" className="w-full" onClick={()=>onSocial("google")}>
                     Google
                   </Button>
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
+                  <Button disabled={pending} variant="outline" type="button" className="w-full" onClick={()=>onSocial("github")}>
                     Github
                   </Button>
                 </div>

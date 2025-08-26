@@ -1,30 +1,18 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
-import HomeLoginPage from "@/modules/dashboard/views/homeLogin";
+import { auth } from "@/lib/auth";
+import HomeLoginPage from "@/modules/dashboard/views/HomeLoginPage";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-const Home = () => {
-  const { data: session } = authClient.useSession();
+const Home = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
 
-
-
-
-  if (session) {
-    return (
-      <div className="h-screen w-full justify-center items-center flex flex-col gap-3 p-4">
-        <h1 className="font-extrabold text-5xl capitalize text-blue-400">
-          Welcome to HAI, {session.user.name.split(" ")[0]}
-        </h1>
-        <Button variant="custom" onClick={() => authClient.signOut()}>
-          Log Out
-        </Button>
-      </div>
-    );
+  if (!session) {
+    redirect("/sign-in");
   }
 
-  return (
-    <HomeLoginPage/>
-  );
+  return <HomeLoginPage />;
 };
 
 export default Home;
