@@ -68,14 +68,27 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
+  /* --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-ring: oklch(0.708 0 0); */
+
+
+--sidebar: oklch(0.22 0.08 280);               /* Deep dark purple-blue background */
+--sidebar-foreground: oklch(0.9 0.04 280);     /* Light lavender text */
+--sidebar-primary: oklch(0.35 0.12 270);       /* Purple-blue primary */
+--sidebar-primary-foreground: oklch(0.96 0.02 280); /* Almost white text */
+--sidebar-accent: oklch(0.28 0.1 290);         /* Accent deep violet-blue */
+--sidebar-accent-foreground: oklch(0.88 0.03 280); /* Softer light text */
+--sidebar-border: oklch(0.3 0.05 280);         /* Border with dark violet-blue */
+--sidebar-ring: oklch(0.5 0.15 280);           /* Vibrant purple-blue focus ring */
+
+
+
 }
 
 .dark {
@@ -116,7 +129,32 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  :root {
+    --sidebar-background: 270 100% 99%; /* very light violet */
+    --sidebar-foreground: 271 30% 25%; /* deep muted violet */
+    --sidebar-primary: 271 80% 40%; /* main violet */
+    --sidebar-primary-foreground: 0 0% 100%; /* white text */
+    --sidebar-accent: 270 60% 96%; /* soft violet accent */
+    --sidebar-accent-foreground: 271 40% 25%; /* darker violet text */
+    --sidebar-border: 270 40% 90%; /* light violet border */
+    --sidebar-ring: 271 85% 55%; /* vibrant violet ring */
+  }
+
+  .dark {
+    --sidebar-background: 271 40% 15%; /* dark violet background */
+    --sidebar-foreground: 270 60% 95%; /* light violet text */
+    --sidebar-primary: 271 80% 70%; /* bright violet */
+    --sidebar-primary-foreground: 271 40% 15%; /* dark violet text */
+    --sidebar-accent: 271 35% 20%; /* muted deep violet */
+    --sidebar-accent-foreground: 270 60% 95%; /* light text */
+    --sidebar-border: 271 35% 25%; /* dark violet border */
+    --sidebar-ring: 271 85% 65%; /* glowing violet */
   }
 }
